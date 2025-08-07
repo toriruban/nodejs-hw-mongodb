@@ -15,7 +15,7 @@
   "keywords": [],
   "author": "toriruban <toriruban@icloud.com>",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/toriruban/nodejs-hw-mongodb/issues"
   },
@@ -29,6 +29,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
+    "express": "^5.1.0",
     "mongoose": "^8.17.0",
     "pino-http": "^10.5.0"
   }
