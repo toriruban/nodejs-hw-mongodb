@@ -6,8 +6,13 @@ dotenv.config();
 const PORT = Number(process.env.PORT) || 3000;
 
 const bootstrap = async () => {
-    await initMongoConnection();
-    setupServer(PORT);
+    try{
+        await initMongoConnection();
+        setupServer(PORT);
+    } catch (err) {
+        throw err;
+    }
+    
 };
 bootstrap();
 
