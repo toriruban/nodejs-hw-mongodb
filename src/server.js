@@ -5,6 +5,7 @@ import { getAllContacts, getContactById } from './services/contacts.js';
 
 export const setupServer = (port) => {
     const app = express();
+      app.set("json spaces", 2);
       app.use(cors({ origin:'*' }));
       app.use(express.json());
       app.use(pino());
