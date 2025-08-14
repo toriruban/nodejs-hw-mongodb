@@ -13,3 +13,10 @@ export const createNewContact = async(payload) => {
     const newContact = await ContactsCollection.create(payload);
     return newContact;
 }
+
+export const deleteContact = async(contactId) => {
+    const contact = await ContactsCollection.findOneAndDelete({
+        _id: contactId
+    });
+    return contact 
+}
