@@ -7,12 +7,13 @@ export const getAllContacts = async ({
     perPage = 10,
     sortOrder = SORT_ORDER.ASC,
     sortBy = '_id',
+    filter = {},
   }) => {
     const limit = perPage;
     const skip = (page - 1) * perPage;
-    const contactsCount = await ContactsCollection.countDocuments();
+    const contactsCount = await ContactsCollection.countDocuments(filter);
     const contacts = await ContactsCollection
-      .find()
+      .find(filter)
       .select('-__v')
       .skip(skip)
       .limit(limit)
