@@ -10,9 +10,8 @@ export const getAllContacts = async ({
   }) => {
     const contactsCount = await ContactsCollection.countDocuments(filter);
     const paginationData = calculatePaginationData(contactsCount, perPage, page);
-    const currentPage = paginationData.page;
     const limit = perPage;
-    const skip = (currentPage - 1) * perPage;
+    const skip = (page - 1) * perPage;
     const contacts = await ContactsCollection
       .find(filter)
       .select('-__v')
