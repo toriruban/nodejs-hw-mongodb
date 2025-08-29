@@ -36,3 +36,7 @@ export const loginUser = async({ email, password }) => {
     });
     return session;
 };
+
+export const logoutUser = async(sessionId) => {
+    await Session.findByIdAndDelete(sessionId);
+};
