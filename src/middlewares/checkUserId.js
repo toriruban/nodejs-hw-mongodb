@@ -1,5 +1,4 @@
 import createHttpError from 'http-errors';
-import { isValidObjectId } from 'mongoose';
 import { User } from '../db/models/user';
 
 export const validateParams =async (req, res, next) => {
