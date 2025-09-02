@@ -27,5 +27,4 @@ usersSchema.set('toObject', {
     return obj;
   };
   
-
 export const User = model('users', usersSchema);
