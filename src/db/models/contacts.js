@@ -1,4 +1,5 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
+import { User } from './user.js';
 
 const contactsSchema = new Schema(
     {
@@ -23,6 +24,11 @@ const contactsSchema = new Schema(
             enum: ['work', 'home', 'personal'],
             required: true,
             default: 'personal',
+        },
+        userId: { 
+            type: Types.ObjectId,
+            ref: User,
+            required: true,
         },
     },
     {

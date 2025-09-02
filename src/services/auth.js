@@ -4,6 +4,14 @@ import crypto from 'node:crypto';
 import { Session } from '../db/models/session.js';
 import { User } from '../db/models/user.js';
 
+const createSession = (userId) => ({
+    accessToken: crypto.randomBytes(30).toString('base64'),
+    refreshToken: crypto.randomBytes(30).toString('base64'),
+    accessTokenValidUntil: new Date(Date.now() + 1000 * 60 * 15),
+    refreshTokenValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+    userId,
+});
+
 export const registerUser = async(payload) => {
     const user = await User.findOne({ email: payload.email });
     if(user) throw createHttpError(409, 'Email in use');
@@ -19,24 +27,38 @@ export const loginUser = async({ email, password }) => {
     const user = await User.findOne({ email });
     if(!user) {
         throw createHttpError(401, 'User with given credentials does not exist!');
-    }
-
+    };
     const arePasswordsEqual = await bcrypt.compare(password, user.password);
     if(!arePasswordsEqual) {
         throw createHttpError(401, 'User with given credentials does not exist!');
     }
     await Session.deleteOne({  userId: user._id, });
-
-    const session = await Session.create({
-        accessToken: crypto.randomBytes(30).toString('base64'),
-        refreshToken: crypto.randomBytes(30).toString('base64'),
-        accessTokenValidUntil: new Date(Date.now() + 1000 * 60 * 15),
-        refreshTokenValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
-        userId: user._id,
-    });
+    const session = await Session.create(createSession(user._id));
     return session;
 };
 
 export const logoutUser = async(sessionId) => {
     await Session.findByIdAndDelete(sessionId);
 };
+
+export const refreshSession = async(sessionId, refreshToken) => {
+    const session = await Session.findOne({_id: sessionId, refreshToken});
+        if (!session) {
+            throw createHttpError(401, 'Session not found!');
+        };
+
+        if(session.refreshTokenValidUntil < new Date()) {
+            await Session.findByIdAndDelete(sessionId);
+            throw createHttpError(401, 'Session expired!');
+        };
+
+        const user  = await User.findById(session.userId);
+        if (!user) {
+            await Session.findByIdAndDelete(sessionId);
+            throw createHttpError(401, 'Session not found!');
+        };
+
+        await Session.findByIdAndDelete(sessionId);
+        const newSession = await Session.create(createSession(user._id));
+        return newSession;
+}
