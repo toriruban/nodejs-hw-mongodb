@@ -1,11 +1,10 @@
 import { model, Schema, Types } from 'mongoose';
-import { User } from './user.js';
 
 const sessionSchema = new Schema (
     {
         userId: { 
             type: Types.ObjectId,
-            ref: User,
+            ref: 'users',
             required: true,
             unique: true,
         },
@@ -24,6 +23,7 @@ const sessionSchema = new Schema (
             type: Date,
             required: true 
         },
+
         refreshTokenValidUntil: {
             type: Date,
             required: true 

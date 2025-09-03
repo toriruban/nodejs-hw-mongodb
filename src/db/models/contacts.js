@@ -1,5 +1,4 @@
 import { model, Schema, Types } from 'mongoose';
-import { User } from './user.js';
 
 const contactsSchema = new Schema(
     {
@@ -27,7 +26,7 @@ const contactsSchema = new Schema(
         },
         userId: { 
             type: Types.ObjectId,
-            ref: User,
+            ref: 'users',
             required: true,
         },
     },
