@@ -37,8 +37,8 @@ export const loginUser = async({ email, password }) => {
     return session;
 };
 
-export const logoutUser = async(sessionId) => {
-    await Session.findByIdAndDelete(sessionId);
+export const logoutUser = async(sessionId, refreshToken) => {
+    await Session.findOneAndDelete({ _id: sessionId, refreshToken });
 };
 
 export const refreshSession = async(sessionId, refreshToken) => {
