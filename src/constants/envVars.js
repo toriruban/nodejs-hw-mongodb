@@ -9,3 +9,9 @@ export const ENV_VARS = {
     APP_DOMAIN:'APP_DOMAIN',
     JWT_SECRET:'JWT_SECRET',
 }     
+
+export const CLOUDINARY = {
+    CLOUD_NAME: 'CLOUD_NAME',
+    API_KEY: 'API_KEY',
+    API_SECRET: 'API_SECRET',
+  };
