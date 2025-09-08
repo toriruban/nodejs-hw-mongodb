@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import router from './routers/index.js'
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 export const setupServer = (port) => {
     const app = express();
@@ -13,6 +14,7 @@ export const setupServer = (port) => {
       app.use(express.json());
       app.use(pino());
       app.use(cookieParser()); 
+      app.use('/uploads', express.static(UPLOAD_DIR));
       app.get('/health', (req, res) => {
         res.status(200).json({ ok: true });
       });
