@@ -113,7 +113,7 @@ export const resetPassword = async(token, password) => {
     try {
         payload = jwt.verify(token, getEnvVar(ENV_VARS.JWT_SECRET));
     } catch (err) {
-        throw createHttpError(401, err.message);
+        throw createHttpError(401, 'Token is expired or invalid.');
     };
 
     const user = await User.findById(payload.sub);
@@ -122,4 +122,5 @@ export const resetPassword = async(token, password) => {
     }
     user.password = await bcrypt.hash(password, 10);
     await user.save();
+    await Session.deleteMany({ userId: user._id });
 };
