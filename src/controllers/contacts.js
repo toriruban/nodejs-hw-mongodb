@@ -13,6 +13,7 @@ import { parseFilterParams } from '../utils/parseFilterParams.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
+import { CLOUDINARY } from '../constants/envVars.js';
 
 export const getContactsController = async (req, res) => {
   const { page = 1, perPage = 10 } = parsePaginationParams(req.query) ?? {};
@@ -44,13 +45,23 @@ export const getContactsByIdController = async (req, res) => {
 };
 
 export const createNewContactController = async (req, res) => {
-  const newContact = await createNewContact(req.body, req.user._id);
+  const patch = { ...req.body };
+
+  if (req.file) {
+    const useCloud = getEnvVar(CLOUDINARY.ENABLE_CLOUDINARY) === 'true';
+    const photoUrl = useCloud
+      ? await saveFileToCloudinary(req.file)
+      : await saveFileToUploadDir(req.file);
+      patch.photo = photoUrl;
+  }
+  const newContact = await createNewContact(patch, req.user._id);
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
     data: newContact,
   });
 };
+
 
 export const deleteContactController = async (req, res) => {
   const { contactId } = req.params;
@@ -61,17 +72,14 @@ export const deleteContactController = async (req, res) => {
 
 export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
-  const photo = req.file; 
   const patch = { ...req.body };
-
-  if (photo) {
-    if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
-    };
-  };
-
+  if (req.file) {
+    const useCloud = getEnvVar(CLOUDINARY.ENABLE_CLOUDINARY) === 'true';
+    const photoUrl = useCloud
+      ? await saveFileToCloudinary(req.file)
+      : await saveFileToUploadDir(req.file);
+      patch.photo = photoUrl;
+  }
   const result = await updateContact(contactId, patch, req.user._id);
   if (!result) throw createHttpError(404, 'Contact not found');
 
