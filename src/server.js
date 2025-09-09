@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import router from './routers/index.js'
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-import { UPLOAD_FILES_DIR_PATH } from './constants/path';
+import { UPLOAD_FILES_DIR_PATH } from './constants/path.js';
 
 export const setupServer = (port) => {
     const app = express();
