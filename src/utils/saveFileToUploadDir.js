@@ -1,13 +1,21 @@
-import path from 'node:path';
 import fs from 'node:fs/promises';
-import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from '../constants/index.js';
+import path from 'node:path';
+import createHttpError from 'http-errors';
+
+import { UPLOAD_FILES_DIR_PATH } from '../constants/path.js';
+import { ENV_VARS } from '../constants/envVars.js';
 import { getEnvVar } from './getEnvVar.js';
 
 export const saveFileToUploadDir = async (file) => {
-  await fs.rename(
-    path.join(TEMP_UPLOAD_DIR, file.filename),
-    path.join(UPLOAD_DIR, file.filename),
-  );
+  try {
+    const newPath = path.join(UPLOAD_FILES_DIR_PATH, file.filename);
+    await fs.rename(file.path, newPath);
 
-  return `${getEnvVar('APP_DOMAIN')}/uploads/${file.filename}`;
+    const rel = `/uploads/${file.filename}`;
+    const base = getEnvVar(ENV_VARS.BACKEND_DOMAIN); 
+    return base ? `${base.replace(/\/$/, '')}${rel}` : rel;
+  } catch (err) {
+    console.error(err);
+    throw createHttpError(500, 'Failed to save file to local');
+  }
 };
