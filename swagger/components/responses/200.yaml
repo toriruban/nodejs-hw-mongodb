@@ -15,7 +15,7 @@ content:
           type: string
           example: "Successfully found contact with id 689f93e17dd1b545366bb29e"
         data:
-          $ref: '../schemas/contacts.yaml/Contact'
+          $ref: '../schemas/contacts.yaml#/Contact'
     examples:
       success:
         value:
