@@ -1,0 +1,53 @@
+tags:
+  - Contacts
+summary: Update contact
+operationId: updateContact
+description: Update contact for the authenticated user. You can also upload a photo.
+
+parameters:
+  - in: path
+    name: contactId
+    required: true
+    description: MongoDB ObjectId of the contact.
+    schema:
+      type: string
+      example: "689f93e17dd1b545366bb29e"
+
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Contact name
+            example: "Updated Vikky"
+          phoneNumber:
+            type: string
+            description: Contact phone number
+            example: "+380991112233"
+          email:
+            type: string
+            format: email
+            description: Contact email (optional)
+            example: "vikky@example.com"
+          isFavourite:
+            type: boolean
+            default: false
+            description: Mark as favourite
+          contactType:
+            type: string
+            enum: [work, home, personal]
+            default: personal
+            description: Category of contact
+          photo:
+            type: string
+            format: binary
+            description: Upload new photo file
+responses:
+  '200':
+   $ref: '../../../components/responses/200.yaml'
+  '404':
+   $ref: '../../../components/responses/404.yaml'
