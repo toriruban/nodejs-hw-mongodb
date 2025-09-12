@@ -71,5 +71,14 @@ responses:
             hasPreviousPage:
               type: boolean
               example: false
+  responses:
+  '200':
+    $ref: '../../../components/responses/200.yaml'
+  '400':
+    description: Invalid contactId format or invalid request body
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    description: Internal server error

@@ -14,11 +14,14 @@ parameters:
     schema:
       type: string
       example: "689f93e17dd1b545366bb29e"
-
 responses:
-  '204':
-    $ref: '../../../components/responses/204.yaml'
+  '200':
+    $ref: '../../../components/responses/200.yaml'
+  '400':
+    description: Invalid contactId format or invalid request body
   '401':
     $ref: '../../../components/responses/401.yaml'
   '404':
     $ref: '../../../components/responses/404.yaml'
+  '500':
+    description: Internal server error
