@@ -1,0 +1,34 @@
+description: Contact successfully created.
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 201
+        message:
+          type: string
+          example: "Contact successfully created"
+        data:
+          $ref: '../schemas/Contact'
+    examples:
+      created:
+        value:
+          status: 201
+          message: "Contact successfully created"
+          data:
+            _id: "689f93e17dd1b545366bb29e"
+            name: "Vikky"
+            phoneNumber: "+380991112233"
+            email: "vikky@example.com"
+            isFavourite: false
+            contactType: "personal"
+            userId: "66b4123e17dd1b545366aa11"
+            photo: "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+            createdAt: "2025-09-12T10:00:00.000Z"
+            updatedAt: "2025-09-12T10:00:00.000Z"
