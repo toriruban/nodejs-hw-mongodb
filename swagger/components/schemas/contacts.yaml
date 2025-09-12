@@ -1,0 +1,56 @@
+Contact:
+  type: object
+  required: [_id, name, phoneNumber, contactType, userId]
+  properties:
+    _id:
+      description: "Contact id (MongoDB ObjectId)."
+      type: string
+      example: "689f93e17dd1b545366bb29e"
+
+    name:
+      description: "Contact name."
+      type: string
+      minLength: 1
+      example: "Vikky"
+
+    phoneNumber:
+      description: "Contact phone number."
+      type: string
+      example: "+380991112233"
+
+    email:
+      description: "Contact email (optional)."
+      type: string
+      format: email
+      example: "vikky@example.com"
+
+    isFavourite:
+      description: "Marks contact as favourite."
+      type: boolean
+      default: false
+      example: true
+
+    contactType:
+      description: "Category of the contact."
+      type: string
+      enum: ["work", "home", "personal"]
+      default: "personal"
+
+    userId:
+      description: "Owner user id (MongoDB ObjectId)."
+      type: string
+      example: "66b4123e17dd1b545366aa11"
+
+    photo:
+      description: "Public URL to contact photo."
+      type: string
+      example: "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+
+    createdAt:
+      type: string
+      format: date-time
+      readOnly: true
+    updatedAt:
+      type: string
+      format: date-time
+      readOnly: true
