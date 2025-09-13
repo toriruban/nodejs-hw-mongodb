@@ -15,7 +15,7 @@ content:
           type: string
           example: "Contact successfully created"
         data:
-          $ref: '../schemas/Contact'
+          $ref: '../schemas/contacts.yaml#/Contact'
     examples:
       created:
         value:

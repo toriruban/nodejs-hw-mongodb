@@ -6,6 +6,8 @@ import router from './routers/index.js'
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { UPLOAD_FILES_DIR_PATH } from './constants/path.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
+
 
 export const setupServer = (port) => {
     const app = express();
@@ -15,6 +17,7 @@ export const setupServer = (port) => {
       app.use(pino());
       app.use(cookieParser()); 
       app.use('/uploads', express.static(UPLOAD_FILES_DIR_PATH));
+      app.use('/api-docs', swaggerDocs());
       app.get('/health', (req, res) => {
         res.status(200).json({ ok: true });
       });

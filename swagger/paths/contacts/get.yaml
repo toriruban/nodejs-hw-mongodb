@@ -5,6 +5,7 @@ operationId: getAllContacts
 description: Returns a paginated list of contacts for the authenticated user.
 security:
   - bearerAuth: []
+
 parameters:
   - in: query
     name: page
@@ -27,10 +28,11 @@ parameters:
     description: Sorting order
     example: asc
   - in: query
-    name: filter
+    name: contactType
     schema: { type: string, enum: [work, home, personal] }
     description: Filter contacts by type
     example: work
+
 responses:
   '200':
     description: Successfully retrieved contacts list
@@ -38,7 +40,16 @@ responses:
       application/json:
         schema:
           type: object
-          required: [status, message, data, page, perPage, filter, totalItems, totalPages, hasNextPage, hasPreviousPage]
+          required:
+            - status
+            - message
+            - data
+            - page
+            - perPage
+            - totalItems
+            - totalPages
+            - hasNextPage
+            - hasPreviousPage
           properties:
             status:
               type: integer
@@ -49,16 +60,13 @@ responses:
             data:
               type: array
               items:
-                $ref: '../../components/schemas/contacts.yaml'
+                $ref: '../../components/schemas/contacts.yaml#/Contact'
             page:
               type: integer
               example: 1
             perPage:
               type: integer
               example: 10
-            filter:
-              type: string
-              example: "work"
             totalItems:
               type: integer
               example: 42
@@ -71,5 +79,9 @@ responses:
             hasPreviousPage:
               type: boolean
               example: false
+  '400':
+    description: Invalid query parameters (page, perPage, sortBy, etc.)
   '401':
     $ref: '../../components/responses/401.yaml'
+  '500':
+    description: Internal server error

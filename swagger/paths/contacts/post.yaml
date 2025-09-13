@@ -42,6 +42,10 @@ requestBody:
             description: Upload photo file
 responses:
   '201':
-   $ref: '../../../components/responses/201.yaml'
-  '404':
-   $ref: '../../../components/responses/404.yaml'
+    $ref: '../../components/responses/201.yaml'
+  '400':
+    description: Validation error (missing required fields or invalid data)
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    description: Internal server error
