@@ -172,8 +172,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "$ref": "#/components/responses/200"
+          "204": {
+            "$ref": "#/components/responses/204"
           },
           "400": {
             "description": "Invalid contactId format or invalid request body"
@@ -258,7 +258,7 @@
           },
           {
             "in": "query",
-            "name": "filter",
+            "name": "contactType",
             "schema": {
               "type": "string",
               "enum": [
@@ -284,7 +284,6 @@
                     "data",
                     "page",
                     "perPage",
-                    "filter",
                     "totalItems",
                     "totalPages",
                     "hasNextPage",
@@ -312,10 +311,6 @@
                     "perPage": {
                       "type": "integer",
                       "example": 10
-                    },
-                    "filter": {
-                      "type": "string",
-                      "example": "work"
                     },
                     "totalItems": {
                       "type": "integer",
@@ -602,6 +597,9 @@
             }
           }
         }
+      },
+      "204": {
+        "description": "Contact successfully deleted. No content is returned."
       },
       "401": {
         "description": "Unauthorized. Missing or invalid authentication token.",

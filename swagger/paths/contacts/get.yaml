@@ -28,7 +28,7 @@ parameters:
     description: Sorting order
     example: asc
   - in: query
-    name: filter
+    name: contactType
     schema: { type: string, enum: [work, home, personal] }
     description: Filter contacts by type
     example: work
@@ -46,7 +46,6 @@ responses:
             - data
             - page
             - perPage
-            - filter
             - totalItems
             - totalPages
             - hasNextPage
@@ -68,9 +67,6 @@ responses:
             perPage:
               type: integer
               example: 10
-            filter:
-              type: string
-              example: "work"
             totalItems:
               type: integer
               example: 42
