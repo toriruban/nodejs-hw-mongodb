@@ -15,8 +15,8 @@ parameters:
       type: string
       example: "689f93e17dd1b545366bb29e"
 responses:
-  '200':
-    $ref: '../../../components/responses/200.yaml'
+  '204':
+    $ref: '../../../components/responses/204.yaml'
   '400':
     description: Invalid contactId format or invalid request body
   '401':
