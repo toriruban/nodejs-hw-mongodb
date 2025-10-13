@@ -91,10 +91,10 @@ EMAIL_PASS=your_password
 ---
 
 ## 🚀 Deployment
-Deployed on **Render`https://contacts-app-ov41.onrender.com`**.  
 API tested with **Postman** 
 
-📜 [Swagger](http://localhost:3000/api-docs/)**.
+🎬 [Deployed](https://contacts-app-ov41.onrender.com)
+📜 [Swagger](http://localhost:3000/api-docs/).
 🔗 [Example base URL](https://contacts-app-ov41.onrender.com/contacts)
 
 ---
