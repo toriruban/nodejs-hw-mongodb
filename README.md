@@ -93,9 +93,9 @@ EMAIL_PASS=your_password
 ## 🚀 Deployment
 API tested with **Postman** 
 
-🎬 [Deployed](https://contacts-app-ov41.onrender.com)
-📜 [Swagger](http://localhost:3000/api-docs/).
-🔗 [Example base URL](https://contacts-app-ov41.onrender.com/contacts)
+ 🎬 [Deployed](https://contacts-app-ov41.onrender.com)
+ 📜 [Swagger](http://localhost:3000/api-docs/)
+ 🔗 [Example base URL](https://contacts-app-ov41.onrender.com/contacts)
 
 ---
 
